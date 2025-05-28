@@ -1,0 +1,13 @@
+version: 5.7.7
+session: 6830e63fea8e9461fd8d5bd6
+steps:
+  - prompt: remember now in format MM-DD-YYYY
+    commands:
+      - command: exec
+        lang: shell
+        output: todayDate
+        windows: powershell -command "Get-Date -Format 'MM-dd-yyyy'"
+        linux: date +%m-%d-%Y
+        mac: date +%m-%d-%Y
+      - command: assert
+        expect: ${OUTPUT.todayDate} is today
