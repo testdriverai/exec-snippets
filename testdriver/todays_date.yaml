@@ -6,7 +6,7 @@ steps:
       - command: exec
         lang: shell
         output: todayDate
-        windows: powershell -command "Get-Date -Format 'MM-dd-yyyy'"
+        windows: "Get-Date -Format 'MM-dd-yyyy'"
         linux: date +%m-%d-%Y
         mac: date +%m-%d-%Y
       - command: assert
