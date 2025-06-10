@@ -1,0 +1,11 @@
+version: 5.7.7
+session: 6830e63fea8e9461fd8d5bd6
+steps:
+  - prompt: remember now in format MM-DD-YYYY
+    commands:
+      - command: exec
+        lang: shell
+        output: rndStr
+        windows: powershell -command "-join (((48..57)+(65..90)+(97..122)) * 80 |Get-Random -Count 12 |%{[char]$_})"
+      - command: assert
+        expect: ${OUTPUT.rndStr} is a 12 digit alphanumeric string
