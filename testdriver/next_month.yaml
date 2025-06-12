@@ -11,10 +11,10 @@ steps:
           $formattedDate = Get-Date -Year $nextMonth11th.Year -Month $nextMonth11th.Month -Day 11; -Format "MM-dd-yyyy";
           Write-Output $formattedDate
         mac: |
-          nextMonth=$(date -d "+1 month" +%m)
-          echo "11-$nextMonth-$(date +%Y)" | sed 's/-/0/g'
+          formatted_date=$(date -d "$(date +%Y-%m-01) +1 month +10 days" +"%m-%d-%Y") \
+          echo "$formatted_date"
         linux: |
-          nextMonth=$(date -d "+1 month" +%m)
-          echo "11-$nextMonth-$(date +%Y)" | sed 's/-/0/g'
+          formatted_date=$(date -d "$(date +%Y-%m-01) +1 month +10 days" +"%m-%d-%Y") \
+          echo "$formatted_date"
       - command: assert
         expect: ${OUTPUT.nextMonthDate} is the 11th of next month in format MM-DD-YYYY
