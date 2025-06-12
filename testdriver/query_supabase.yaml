@@ -6,15 +6,8 @@ steps:
       - command: exec
         lang: shell
         output: tpsReportName
-        windows: |
-          $projectRef = "${TD_SUPABASE_PROJECT_REF}";
-          $bucket = "${TD_SUPABASE_BUCKET}";
-          $apiKey = "${TD_SUPABASE_SERVICE_KEY}";
+        windows: $projectRef = "${TD_SUPABASE_PROJECT_REF}" $bucket = ${TD_SUPABASE_BUCKET}"; $apiKey = "${TD_SUPABASE_SERVICE_KEY} $response = Invoke-RestMethod -Uri "https://$projectRef.supabase.co/storage/v1/object/list/$bucket" -Headers @{"apikey" = $apiKey; "Authorization" = "Bearer $apiKey"}; $firstItem = $response | Select-Object -First 1; Write-Output ($firstItem | ConvertTo-Json -Depth 3)
 
-          $response = Invoke-RestMethod -Uri "https://$projectRef.supabase.co/storage/v1/object/list/$bucket" -Headers @{"apikey" = $apiKey; "Authorization" = "Bearer $apiKey"};
-
-          $firstItem = $response | Select-Object -First 1;
-          $firstItem | ConvertTo-Json -Depth 3;
         mac: |
           projectRef="${TD_SUPABASE_PROJECT_REF}"
           bucket="${TD_SUPABASE_BUCKET}"
