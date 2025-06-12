@@ -7,22 +7,22 @@ steps:
         lang: shell
         output: tpsReportName
         windows: |
-          $projectRef = "${TD_SUPABASE_PROJECT_REF}"
-          $bucket = "${TD_SUPABASE_BUCKET}"
-          $apiKey = "${TD_SUPABASE_SERVICE_KEY}"
+          $projectRef = "${TD_SUPABASE_PROJECT_REF}";
+          $bucket = "${TD_SUPABASE_BUCKET}";
+          $apiKey = "${TD_SUPABASE_SERVICE_KEY}";
 
           # Make the request to list objects in the bucket
-          $response = Invoke-RestMethod -Uri "https://$projectRef.supabase.co/storage/v1/object/list/$bucket" `
+          $response = Invoke-RestMethod -Uri "https://$projectRef.supabase.co/storage/v1/object/list/$bucket" `;
             -Headers @{
               "apikey" = $apiKey
               "Authorization" = "Bearer $apiKey"
-            }
+            };
 
           # Parse the JSON and get the first item
-          $firstItem = $response | Select-Object -First 1
+          $firstItem = $response | Select-Object -First 1;
 
           # Output first item
-          $firstItem | ConvertTo-Json -Depth 3
+          $firstItem | ConvertTo-Json -Depth 3;
         mac: |
           projectRef="${TD_SUPABASE_PROJECT_REF}"
           bucket="${TD_SUPABASE_BUCKET}"
