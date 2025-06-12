@@ -58,3 +58,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FORCE_COLOR: "3"
           WEBSITE_URL: "example.com"
+          TD_SUPABASE_PROJECT_REF: ${{ secrets.TD_SUPABASE_PROJECT_REF }}
+          TD_SUPABASE_BUCKET: ${{ secrets.TD_SUPABASE_BUCKET }}
+          TD_SUPABASE_SERVICE_KEY: ${{ secrets.TD_SUPABASE_SERVICE_KEY }}

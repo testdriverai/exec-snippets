@@ -12,19 +12,17 @@ steps:
           $apiKey = "${TD_SUPABASE_SERVICE_KEY}"
 
           # Make the request to list objects in the bucket
-          $response = curl -Uri "https://$projectRef.supabase.co/storage/v1/object/list/$bucket" `
-          -Headers @{
-          "apikey" = $apiKey
-          "Authorization" = "Bearer $apiKey"
-          } `
-          -UseBasicParsing
+          $response = Invoke-RestMethod -Uri "https://$projectRef.supabase.co/storage/v1/object/list/$bucket" `
+            -Headers @{
+              "apikey" = $apiKey
+              "Authorization" = "Bearer $apiKey"
+            }
 
           # Parse the JSON and get the first item
-          $items = $response.Content | ConvertFrom-Json
-          $firstItem = $items | Select-Object -First 1
+          $firstItem = $response | Select-Object -First 1
 
           # Output first item
-          $firstItem
+          $firstItem | ConvertTo-Json -Depth 3
         mac: |
           projectRef="${TD_SUPABASE_PROJECT_REF}"
           bucket="${TD_SUPABASE_BUCKET}"
