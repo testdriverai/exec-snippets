@@ -1,0 +1,59 @@
+ersion: 5.7.56
+session: 684af9c807e9101688883263
+steps:
+  - prompt: store the date for the 11th of next month in format MM-DD-YYYY
+    commands:
+      - command: exec
+        lang: shell
+        output: tpsReportName
+        windows: |
+          $projectRef = "${TD_SUPABASE_PROJECT_REF}"
+          $bucket = "${TD_SUPABASE_BUCKET}"
+          $apiKey = "${TD_SUPABASE_SERVICE_KEY}"
+
+          # Make the request to list objects in the bucket
+          $response = curl -Uri "https://$projectRef.supabase.co/storage/v1/object/list/$bucket" `
+          -Headers @{
+          "apikey" = $apiKey
+          "Authorization" = "Bearer $apiKey"
+          } `
+          -UseBasicParsing
+
+          # Parse the JSON and get the first item
+          $items = $response.Content | ConvertFrom-Json
+          $firstItem = $items | Select-Object -First 1
+
+          # Output first item
+          $firstItem
+        mac: |
+          projectRef="${TD_SUPABASE_PROJECT_REF}"
+          bucket="${TD_SUPABASE_BUCKET}"
+          apiKey="${TD_SUPABASE_SERVICE_KEY}"
+
+          # Make the request to list objects in the bucket
+          response=$(curl -s -X GET "https://$projectRef.supabase.co/storage/v1/object/list/$bucket" \
+          -H "apikey: $apiKey" \
+          -H "Authorization: Bearer $apiKey")
+
+          # Parse the JSON and get the first item
+          firstItem=$(echo $response | jq -r '.data[0]')
+
+          # Output first item
+          echo $firstItem
+        linux: |
+          projectRef="${TD_SUPABASE_PROJECT_REF}"
+          bucket="${TD_SUPABASE_BUCKET}"
+          apiKey="${TD_SUPABASE_SERVICE_KEY}"
+
+          # Make the request to list objects in the bucket
+          response=$(curl -s -X GET "https://$projectRef.supabase.co/storage/v1/object/list/$bucket" \
+          -H "apikey: $apiKey" \
+          -H "Authorization: Bearer $apiKey")
+
+          # Parse the JSON and get the first item
+          firstItem=$(echo $response | jq -r '.data[0]')
+
+          # Output first item
+          echo $firstItem
+      - command: assert
+        expect: ${OUTPUT.tpsReportName} exists
