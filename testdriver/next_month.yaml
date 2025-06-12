@@ -9,7 +9,7 @@ steps:
         windows: |
           $nextMonth11th = (Get-Date).AddMonths(1);
           $formattedDate = Get-Date -Year $nextMonth11th.Year -Month $nextMonth11th.Month -Day 11; -Format "MM-dd-yyyy";
-          $formattedDate
+          Write-Output $formattedDate
         mac: |
           nextMonth=$(date -d "+1 month" +%m)
           echo "11-$nextMonth-$(date +%Y)" | sed 's/-/0/g'
