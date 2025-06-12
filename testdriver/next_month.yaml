@@ -8,7 +8,7 @@ steps:
         output: nextMonthDate
         windows: |
           $nextMonth11th = (Get-Date).AddMonths(1);
-          $formattedDate = Get-Date -Year $nextMonth11th.Year -Month $nextMonth11th.Month -Day 11; -Format "MM-dd-yyyy";
+          $formattedDate = Get-Date -Year $nextMonth11th.Year -Month $nextMonth11th.Month -Day 11 -Format "MM-dd-yyyy";
           Write-Output $formattedDate
         mac: |
           formatted_date=$(date -d "$(date +%Y-%m-01) +1 month +10 days" +"%m-%d-%Y") \
