@@ -12,11 +12,7 @@ steps:
           $apiKey = "${TD_SUPABASE_SERVICE_KEY}";
 
           # Make the request to list objects in the bucket
-          $response = Invoke-RestMethod -Uri "https://$projectRef.supabase.co/storage/v1/object/list/$bucket" `
-            -Headers @{
-              "apikey" = $apiKey
-              "Authorization" = "Bearer $apiKey"
-            };
+          $response = Invoke-RestMethod -Uri "https://$projectRef.supabase.co/storage/v1/object/list/$bucket" -Headers @{"apikey" = $apiKey "Authorization" = "Bearer $apiKey"};
 
           # Parse the JSON and get the first item
           $firstItem = $response | Select-Object -First 1;
