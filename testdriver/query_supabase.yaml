@@ -11,7 +11,7 @@ steps:
           $bucket = "${TD_SUPABASE_BUCKET}";
           $apiKey = "${TD_SUPABASE_SERVICE_KEY}";
 
-          $response = Invoke-RestMethod -Uri "https://$projectRef.supabase.co/storage/v1/object/list/$bucket" -Headers @{"apikey" = $apiKey, "Authorization" = "Bearer $apiKey"};
+          $response = Invoke-RestMethod -Uri "https://$projectRef.supabase.co/storage/v1/object/list/$bucket" -Headers @{"apikey" = $apiKey; "Authorization" = "Bearer $apiKey"};
 
           $firstItem = $response | Select-Object -First 1;
           $firstItem | ConvertTo-Json -Depth 3;
