@@ -1,0 +1,9 @@
+version: 5.7.56
+session: 684af9c807e9101688883263
+steps:
+  - prompt: store the date for the 11th of next month in format MM-DD-YYYY
+    commands:
+      - command: exec
+        lang: shell
+        output: nextMonthDate
+        windows: "Get-Date -Format 'MM-dd-yyyy' -Date (Get-Date).AddMonths(1).AddDays(10)"
