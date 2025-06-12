@@ -32,7 +32,7 @@ jobs:
           FILES=$(ls ./testdriver/*.yaml)
           FILENAMES=$(basename -a $FILES)
           FILES_JSON=$(echo "$FILENAMES" | jq -R -s -c 'split("\n")[:-1]')
-          echo "::set-output name=files::$FILES_JSON"
+          echo "$FILES_JSON" >> $GITHUB_OUTPUT
   test:
     needs: gather-test-files
     runs-on: ubuntu-latest
