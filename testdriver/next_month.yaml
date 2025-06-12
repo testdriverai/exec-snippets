@@ -6,4 +6,15 @@ steps:
       - command: exec
         lang: shell
         output: nextMonthDate
-        windows: "Get-Date -Format 'MM-dd-yyyy' -Date (Get-Date).AddMonths(1).AddDays(10)"
+        windows: |
+          $nextMonth11th = (Get-Date).AddMonths(1)
+          $formattedDate = Get-Date -Year $nextMonth11th.Year -Month $nextMonth11th.Month -Day 11 -Format "MM-dd-yyyy"
+          $formattedDate
+        mac: |
+          nextMonth=$(date -d "+1 month" +%m)
+          echo "11-$nextMonth-$(date +%Y)" | sed 's/-/0/g'
+        linux: |
+          nextMonth=$(date -d "+1 month" +%m)
+          echo "11-$nextMonth-$(date +%Y)" | sed 's/-/0/g'
+      - command: assert
+        expect: ${OUTPUT.nextMonthDate} is the 11th of next month in format MM-DD-YYYY
