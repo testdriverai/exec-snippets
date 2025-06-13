@@ -1,7 +1,7 @@
-ersion: 5.7.56
+version: 5.7.56
 session: 684af9c807e9101688883263
 steps:
-  - prompt: store the date for the 11th of next month in format MM-DD-YYYY
+  - prompt: query my tps-bucket for the first value and store it in tpsReportName
     commands:
       - command: exec
         lang: shell
