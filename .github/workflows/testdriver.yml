@@ -51,16 +51,7 @@ jobs:
           os: ${{ contains(matrix.os, 'windows') && 'windows' || 'linux' }}
           version: latest
           prerun: |
-            $projectRef = "${TD_SUPABASE_PROJECT_REF}"
-            $bucket = ${TD_SUPABASE_BUCKET}"
-            $apiKey = "${TD_SUPABASE_SERVICE_KEY}
-            $headers = @{
-              "apikey" = $apiKey
-              "Authorization" = "Bearer $apiKey"
-            }
-            $response = Invoke-RestMethod -Uri "https://$projectRef.supabase.co/storage/v1/object/list/$bucket" -Headers $headers
-            $firstItem = $response | Select-Object -First 1
-            Write-Output ($firstItem | ConvertTo-Json -Depth 3)
+            exit
           key: ${{ secrets.TESTDRIVER_API_KEY }}
           prompt: |
             1. /run testdriver/${{ matrix.test }}
