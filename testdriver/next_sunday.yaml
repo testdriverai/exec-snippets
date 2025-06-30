@@ -1,0 +1,27 @@
+version: 5.7.56
+session: 684af9c807e9101688883263
+steps:
+  - prompt: store the date for the next Sunday in format MM-DD-YYYY
+    commands:
+      - command: exec
+        lang: shell
+        output: nextSundayDate
+        windows: |
+          $today = Get-Date;
+          $dayOfWeek = $today.DayOfWeek;
+
+          # Calculate the number of days until the next Sunday
+          $daysToAdd = 0;
+          if ($dayOfWeek -ne [DayOfWeek]::Sunday) {
+            # If today is not Sunday, calculate days until next Sunday
+            $daysToAdd = ([int][DayOfWeek]::Sunday - [int]$dayOfWeek + 7) % 7
+          } else {
+            # If today is Sunday, the next Sunday is in 7 days
+            $daysToAdd = 7
+          };
+
+          $nextSunday = $today.AddDays($daysToAdd);
+          Write-Output $($nextSunday.ToShortDateString());
+
+      - command: assert
+        expect: ${OUTPUT.nextSundayDate} is the following Sunday from today's date
