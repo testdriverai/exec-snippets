@@ -22,6 +22,33 @@ steps:
 
           $nextSunday = $today.AddDays($daysToAdd);
           Write-Output $($nextSunday.ToShortDateString());
+        linux: |
+          today=$(date +%s)
+          day_of_week=$(date +%u)  # 1 = Monday, 7 = Sunday
 
+          # Calculate days to add until next Sunday
+          if [ "$day_of_week" -ne 7 ]; then
+            days_to_add=$((7 - day_of_week))
+          else
+            days_to_add=7
+          fi
+
+          # Calculate next Sunday's date
+          next_sunday=$(date -d "+$days_to_add days" +%m/%d/%Y)
+          echo "$next_sunday"
+        mac: |
+          today=$(date +%s)
+          day_of_week=$(date +%u)  # 1 = Monday, 7 = Sunday
+
+          # Calculate days to add until next Sunday
+          if [ "$day_of_week" -ne 7 ]; then
+            days_to_add=$((7 - day_of_week))
+          else
+            days_to_add=7
+          fi
+
+          # Calculate next Sunday's date
+          next_sunday=$(date -j -v+${days_to_add}d +%m/%d/%Y)
+          echo "$next_sunday"
       - command: assert
         expect: ${OUTPUT.nextSundayDate} is the following Sunday from today's date
