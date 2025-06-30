@@ -1,7 +1,7 @@
 version: 5.7.7
 session: 6830e63fea8e9461fd8d5bd6
 steps:
-  - prompt: remember now in format MM-DD-YYYY
+  - prompt: create a random string of length 12
     commands:
       - command: exec
         lang: shell
